@@ -225,6 +225,10 @@ disabled_tests = [
     # This one crashes the interpreter if it has a bug parsing the
     # invalid data.
     'test_ssl.BasicSocketTests.test_parse_cert_CVE_2019_5010',
+    # We had to copy in a newer version of the test file for SSL fixes
+    # and this doesn't work reliably on all versions.
+    'test_httplib.HeaderTests.test_headers_debuglevel',
+
 ]
 
 if 'thread' in os.getenv('GEVENT_FILE', ''):
@@ -711,9 +715,8 @@ if PYPY:
             # it hangs
             'test_subprocess.ProcessTestcase.test_child_terminated_in_stopped_state',
 
-            # We had to copy in a newer version of the test file for SSL fixes
-            # and this doesn't work right here.
-            'test_httplib.HeaderTests.test_headers_debuglevel',
+            # Certificate errors; need updated test
+            'test_urllib2_localnet.TestUrlopen.test_https',
         ]
 
 # Generic Python 3

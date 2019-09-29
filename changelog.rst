@@ -3,6 +3,11 @@ Changelog
 
 .. currentmodule:: gevent
 
+Release 1.0.2b1 (2017-01-17 eleme)
+----------------------------------
+
+- Backport https://github.com/gevent/gevent/pull/705/files#diff-8c8163e6e52923fe9e916d65078822ff to 1.0.2
+
 
 Release 1.0.2 (May 23, 2015)
 -------------

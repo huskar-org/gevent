@@ -1,5 +1,4 @@
 import sys
-from gevent.hub import PYGTE279
 from greentest import walk_modules, BaseTestCase, main
 import six
 
@@ -27,7 +26,7 @@ for path, module in walk_modules():
         continue
     if sys.version_info[0] == 2 and path.endswith('3.py'):
         continue
-    if not PYGTE279 and path.endswith('279.py'):
+    if not hasattr(__import__('ssl'), 'SSLContext') and path.endswith('279.py'):
         continue
     make_exec_test(path, module)
 

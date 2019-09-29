@@ -658,17 +658,14 @@ def getfqdn(name=''):
 
 
 if hasattr(__socket__, 'ssl'):
-    _have_ssl = True
-    from gevent.hub import PYGTE279
-
     def ssl(sock, keyfile=None, certfile=None):
-        # deprecated in 2.7.9 but still present
-        if PYGTE279:
-            from . import _sslgte279
-            return _sslgte279.wrap_socket(sock, keyfile, certfile)
-        else:
-            from . import _ssl2
-            return _ssl2.sslwrap_simple(sock, keyfile, certfile)
+        # deprecated in 2.7.9 but still present;
+        # sometimes backported by distros. See ssl.py
+        from gevent import ssl as _sslmod
+        # wrap_socket is 2.7.9/backport, sslwrap_simple is older. They take
+        # the same arguments.
+        wrap = getattr(_sslmod, 'wrap_socket', None) or getattr(_sslmod, 'sslwrap_simple')
+        return wrap(sock, keyfile, certfile)
     __implements__.append('ssl')
 
 __all__ = __implements__ + __extensions__ + __imports__

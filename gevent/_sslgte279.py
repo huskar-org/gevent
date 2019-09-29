@@ -35,6 +35,8 @@ for name in dir(__ssl__):
         continue
     if name.startswith('__'):
         continue
+    if name == 'socket':
+        continue
     value = getattr(__ssl__, name)
     globals()[name] = value
     __imports__.append(name)
